@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input class="click" type="text"/>
+    <input class="focus" type="text"/>
+    <input class="value" type="text"/>
+    <button id="btnToClick">Click me!</button>
+
+    <script>
+        // 1.1 Evento click para el botón
+        document.getElementById('btnToClick').addEventListener('click', (event) => {
+            console.log(event);
+        });
+
+        // 1.2 Evento focus para el input con clase .focus
+        document.querySelector('.focus').addEventListener('focus', (event) => {
+            console.log(event.target.value);
+        });
+
+        // 1.3 Evento input para el input con clase .value
+        document.querySelector('.value').addEventListener('input', (event) => {
+            console.log(event.target.value);
+        });
+
+        // Lista dinámica de álbumes
+        const albums = [
+            "De Mysteriis Dom Sathanas",
+            "Reign of Blood",
+            "Ride the Lightning",
+            "Painkiller",
+            "Iron Fist"
+        ];
+        const ulAlbums = document.createElement('ul');
+        albums.forEach(album => {
+            const li = document.createElement('li');
+            li.textContent = album;
+            ulAlbums.appendChild(li);
+        });
+        document.body.appendChild(ulAlbums);
+    </script>
+</body>
+</html>
 
