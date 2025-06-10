@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 class="fn-insert-here"></h2>
+    <p class="fn-remove-me">Eliminame!</p>
+    <p>No me elimines!</p>
+    <p>No me elimines!</p>
+    <p class="fn-remove-me">Eliminame!</p>
+    <p>No me elimines!</p>
+    <p class="fn-remove-me">Eliminame!</p>
+    <p class="fn-remove-me">Eliminame!</p>
+    <p>No me elimines!</p>
+    <div></div><div></div>
+    <div class="fn-insert-here"></div>
+    <div class="fn-insert-here"></div>
+
+    <script>
+        // 2.1 Inserta un div vacío dinámicamente
+        const body = document.body;
+        const emptyDiv = document.createElement('div');
+        body.appendChild(emptyDiv);
+
+        // 2.2 Inserta un div que contenga un p
+        const divWithP = document.createElement('div');
+        const pInsideDiv = document.createElement('p');
+        pInsideDiv.textContent = '¡Soy un p dentro de un div!';
+        divWithP.appendChild(pInsideDiv);
+        body.appendChild(divWithP);
+
+        // 2.3 Inserta un div que contenga 6 p usando un loop
+        const divWith6P = document.createElement('div');
+        for (let i = 0; i < 6; i++) {
+            const p = document.createElement('p');
+            p.textContent = `Párrafo ${i + 1} dentro del div`;
+            divWith6P.appendChild(p);
+        }
+        body.appendChild(divWith6P);
+
+        // 2.4 Inserta una p con el texto 'Soy dinámico!'
+        const dynamicP = document.createElement('p');
+        dynamicP.textContent = 'Soy dinámico!';
+        body.appendChild(dynamicP);
+
+        // 2.5 Inserta en el h2 con la clase .fn-insert-here el texto 'Wubba Lubba dub dub'
+        const h2 = document.querySelector('h2.fn-insert-here');
+        h2.textContent = 'Wubba Lubba dub dub';
+
+        // 2.6 Crea una lista ul > li con los textos del array
+        const apps = ['Facebook', 'Netflix', 'Instagram', 'Snapchat', 'Twitter'];
+        const ul = document.createElement('ul');
+        apps.forEach(app => {
+            const li = document.createElement('li');
+            li.textContent = app;
+            ul.appendChild(li);
+        });
+        body.appendChild(ul);
+
+        // 2.7 Elimina todos los nodos con la clase .fn-remove-me
+        document.querySelectorAll('.fn-remove-me').forEach(el => el.remove());
+
+        // 2.8 Inserta una p con el texto 'Voy en medio!' entre los dos div (los primeros)
+        const divs = document.querySelectorAll('body > div'); // Ojo: puede seleccionar más de los dos primeros si hay otros divs
+        // Esto asume que los dos primeros divs son los que están juntos, sin clase
+        if (divs.length >= 2) {
+            const pEnMedio = document.createElement('p');
+            pEnMedio.textContent = 'Voy en medio!';
+            // insertBefore no funciona aquí porque queremos insertar entre los divs
+            // Usamos insertAdjacentElement con 'afterend'
+            divs[0].insertAdjacentElement('afterend', pEnMedio);
+            // Pero esto lo pone después del primer div, no entre ambos
+            // Para asegurarnos de que está exactamente entre ambos, aquí un truco:
+            // Eliminar y volver a añadir puede no ser lo mejor, pero normalmente, insertar después del primero
+            // Si hay muchos divs, mejor identificar solo los dos primeros sin clase
+            // Alternativa: si tienes solo dos divs seguidos, este código funciona
+            // Si tienes otros divs, mejor usar un selector más específico:
+            // Por ejemplo, seleccionar solo los divs sin clase:
+            const divsSinClase = Array.from(document.querySelectorAll('body > div:not([class])')).slice(0, 2);
+            if (divsSinClase.length === 2) {
+                const pBetween = document.createElement('p');
+                pBetween.textContent = 'Voy en medio!';
+                divsSinClase[0].insertAdjacentElement('afterend', pBetween);
+            }
+        }
+
+        // 2.9 Inserta p con el texto 'Voy dentro!', dentro de todos los div con la clase .fn-insert-here
+        document.querySelectorAll('div.fn-insert-here').forEach(div => {
+            const pInside = document.createElement('p');
+            pInside.textContent = 'Voy dentro!';
+            div.appendChild(pInside);
+        });
+    </script>
+</body>
+</html>
 
